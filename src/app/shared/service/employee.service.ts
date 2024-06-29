@@ -229,10 +229,16 @@ export class EmployeeService {
 
 
   //---------------------------------------------------------------------------------------------------------------------------------
-//#region  
+  //#region  Delete a Time Entry 
 
+  //we need to define a observable to be called when the time entry is to be deleted
 
-//#endregion
+  DeleteTimeEntry(timeEntryId:number): Observable<any> {
+  
+    console.log('The value recieved in the observable is:', timeEntryId);
+    return this.httpClient.delete(''+timeEntryId);
+  }
+  //#endregion
 
 }
 

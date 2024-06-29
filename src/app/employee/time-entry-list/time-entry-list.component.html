@@ -18,7 +18,7 @@
         <td>{{data.ActivityName}}</td>
         <td>{{data.TimeSpend}}</td>
         <td><button class="btn btn-outline-primary" (click)="EditATimeEntry(data)" >Edit</button></td>
-        <td><button class="btn btn-outline-danger">Delete</button></td>
+        <td><button class="btn btn-outline-danger" (click)="DeleteTimeEntry(data.TimeEntryId)">Delete</button></td>
     </tr>
 </tbody>
 
