@@ -1,1 +1,24 @@
-<p>time-entry-add works!</p>
+<h2>Add a new Time Entry</h2>
+
+<form #form="ngForm" (ngSubmit)="AddNewTimeEntry(form)" >
+
+    <input type="date" name="EntryDate" [(ngModel)]="newTimeEnty.EntryDate" #EntryDate="ngModel" >
+
+    <label>Project Name</label>
+    <select class="form-control" (change)="FillActivitiesDropdown()" name="ProjectId" [(ngModel)]="selectedProjectId" >
+        <option>--Select Project--</option>
+        <option *ngFor="let data of service.listOfProjects" value="{{data.Id}}" >{{data.Name}}</option>
+    </select>
+
+    <label>Activity</label>
+    <select class="form-control" name="ActivityId" #ActivityId="ngModel" [(ngModel)]="newTimeEnty.ActivityId" >
+        <option>--Select Activity--</option>
+        <option *ngFor="let data of service.listOfActivities" value="{{data.Id}}" >{{data.Name}}</option>
+    </select>
+
+    <label>Time Spend</label>
+    <input type="number" class="form-control" placeholder="Enter Time in Hours" name="TimeSpend" #TimeSpend="ngModel" [(ngModel)]="newTimeEnty.TimeSpend" />
+
+
+    <button type="submit" class="btn btn-outline-success">Add</button>
+</form>

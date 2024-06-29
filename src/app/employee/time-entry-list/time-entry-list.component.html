@@ -1,1 +1,29 @@
-<p>time-entry-list works!</p>
+
+<h2>Time Entries</h2>
+
+<p>Choose Date to view Entries : </p>
+<input type="date" name="selectedDate" [(ngModel)]="selectedDate" (change)="GetSelectedDate()" />
+<table class="table">
+
+<thead>
+    <th>Project Name</th>
+    <th>Activity Name</th>
+    <th>Time Spend</th>
+
+</thead>
+
+<tbody>
+    <tr *ngFor="let data of service.listOfTimeEnties">
+        <td>{{data.ProjectName}}</td>
+        <td>{{data.ActivityName}}</td>
+        <td>{{data.TimeSpend}}</td>
+        <td><button class="btn btn-outline-primary">Edit</button></td>
+        <td><button class="btn btn-outline-danger">Delete</button></td>
+    </tr>
+</tbody>
+
+<tbody>
+
+</tbody>
+
+</table>
