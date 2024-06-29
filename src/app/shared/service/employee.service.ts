@@ -205,5 +205,34 @@ export class EmployeeService {
   }
 
   //#endregion
+
+
+
+
+  //---------------------------------------------------------------------------------------------------------------------------------
+  //#region  Edit A Time Entry 
+
+  //declaring an instance to store the details of the selected Time Entry 
+  selectedTimeEntry: TimeEntryDetail;// = new TimeEntryDetail();
+  //------------------------------
+
+  // then we need to define a observable to be called when the time entry is to be edited 
+
+  EditTimeEntry(timeEntry: TimeEntry): Observable<any> {
+    timeEntry.EntryDate = new Date();
+    console.log('The value recieved in the observable is:', timeEntry);
+    return this.httpClient.post('', timeEntry);
+  }
+
+  //#endregion
+
+
+
+  //---------------------------------------------------------------------------------------------------------------------------------
+//#region  
+
+
+//#endregion
+
 }
-``
+

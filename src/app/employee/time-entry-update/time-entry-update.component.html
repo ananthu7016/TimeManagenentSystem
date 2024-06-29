@@ -1,0 +1,44 @@
+<h2>Update a Time Entry</h2>
+
+
+<h4>Current Details</h4>
+<table class="table">
+<tbody>
+    <tr>
+        <td>Project Name : </td>
+        <td>{{service.selectedTimeEntry.ProjectName}}</td>
+    </tr>
+    <tr>
+        <td>Activity Name : </td>
+        <td>{{service.selectedTimeEntry.ActivityName}}</td>
+    </tr>
+    <tr>
+        <td>Time Spend : </td>
+        <td>{{service.selectedTimeEntry.TimeSpend}}</td>
+    </tr>
+</tbody>
+</table>
+
+
+<form #form="ngForm" (ngSubmit)="UpdateTimeEntry(form)" >
+
+    <input type="number" name="TimeEntryId" #TimeEntryId="ngModel" [(ngModel)]="service.selectedTimeEntry.TimeEntryId" />
+
+    <label>Project Name</label>
+    <select class="form-control" (change)="FillActivitiesDropdown()" name="ProjectId" [(ngModel)]="selectedProjectId" >
+        <option>--Select Project--</option>
+        <option *ngFor="let data of service.listOfProjects" value="{{data.Id}}" >{{data.Name}}</option>
+    </select>
+
+    <label>Activity</label>
+    <select class="form-control" name="ActivityId" #ActivityId="ngModel" [(ngModel)]="updatedTimeEntry.ActivityId" >
+        <option>--Select Activity--</option>
+        <option *ngFor="let data of service.listOfActivities" value="{{data.Id}}" >{{data.Name}}</option>
+    </select>
+
+    <label>Time Spend</label>
+    <input type="number" class="form-control" placeholder="Enter Time in Hours" name="TimeSpend" #TimeSpend="ngModel" [(ngModel)]="updatedTimeEntry.TimeSpend" />
+
+
+    <button type="submit" class="btn btn-outline-secondary">Save</button>
+</form>

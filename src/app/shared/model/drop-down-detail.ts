@@ -14,4 +14,5 @@ export class DropDownDetail {
         this.Id = Id,
         this.Name = Name
     }
+
 }
