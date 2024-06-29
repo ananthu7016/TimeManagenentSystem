@@ -1,6 +1,29 @@
 
 
-<button class="btn btn-success">New Time Entry</button>
-<app-time-entry-list></app-time-entry-list>
-<app-time-entry-add></app-time-entry-add>
-<app-time-entry-update></app-time-entry-update>
+
+
+
+
+<div class="container">
+    <button class="btn btn-success" (click)="ShowAddComponent()" >New Time Entry</button>
+    <div *ngIf="service.toogleList">
+        <app-time-entry-list></app-time-entry-list>
+    </div>
+    
+    <div class="row" *ngIf="service.toogleGrid" >
+      
+        <div class="col-sm-8">
+            <app-time-entry-list></app-time-entry-list>
+        </div>
+
+        <div class="col-sm-4">
+            <button class="btn btn btn-danger" (click)="CloseGrid()" >x</button>
+            <app-time-entry-add *ngIf="service.toogleAdd"></app-time-entry-add>
+            <app-time-entry-update *ngIf="service.toogleEdit" ></app-time-entry-update>
+        </div>
+
+    </div>
+    
+</div>
+
+

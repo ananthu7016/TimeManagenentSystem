@@ -233,11 +233,26 @@ export class EmployeeService {
 
   //we need to define a observable to be called when the time entry is to be deleted
 
-  DeleteTimeEntry(timeEntryId:number): Observable<any> {
-  
+  DeleteTimeEntry(timeEntryId: number): Observable<any> {
+
     console.log('The value recieved in the observable is:', timeEntryId);
-    return this.httpClient.delete(''+timeEntryId);
+    return this.httpClient.delete('' + timeEntryId);
   }
+  //#endregion
+
+
+
+  //----------------------------------------------------------------------------------------------------------------------------------
+  //#region Hide & Unhide Components
+  //here we need to declare some boolan fields their values can be used to hide and unhide components
+
+  toogleList: boolean = true; // for toogling the TimeEntry list component
+  toogleGrid: boolean = false; // for toogling the Grid size of components 
+  toogleAdd: boolean = false; // for toogling the component to add an Entry 
+  toogleEdit: boolean = false;// for toogling the Component to Edit an Entr
+
+  //-------------------------------------
+
   //#endregion
 
 }

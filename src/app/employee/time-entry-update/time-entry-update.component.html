@@ -22,17 +22,17 @@
 
 <form #form="ngForm" (ngSubmit)="UpdateTimeEntry(form)" >
 
-    <input type="number" name="TimeEntryId" #TimeEntryId="ngModel" [(ngModel)]="service.selectedTimeEntry.TimeEntryId" />
+    <input type="number" name="TimeEntryId" #TimeEntryId="ngModel" [(ngModel)]="service.selectedTimeEntry.TimeEntryId" hidden />
 
     <label>Project Name</label>
     <select class="form-control" (change)="FillActivitiesDropdown()" name="ProjectId" [(ngModel)]="selectedProjectId" >
-        <option>--Select Project--</option>
+        <option value="0">--Select Project--</option>
         <option *ngFor="let data of service.listOfProjects" value="{{data.Id}}" >{{data.Name}}</option>
     </select>
 
     <label>Activity</label>
     <select class="form-control" name="ActivityId" #ActivityId="ngModel" [(ngModel)]="updatedTimeEntry.ActivityId" >
-        <option>--Select Activity--</option>
+        <option value="0">--Select Activity--</option>
         <option *ngFor="let data of service.listOfActivities" value="{{data.Id}}" >{{data.Name}}</option>
     </select>
 

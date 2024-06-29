@@ -67,6 +67,12 @@ EditATimeEntry(timeEntry:TimeEntryDetail){
   // then we need to assign this to a global instance in the service so that the edit component can access it.
   this.service.selectedTimeEntry = timeEntry;
 
+  // then we need to hide the Add component and display the edit component and grid.
+  this.service.toogleAdd=false;
+  this.service.toogleGrid=true;
+  this.service.toogleEdit=true;
+  this.service.toogleList=false;
+
 }
 
 //#endregion
