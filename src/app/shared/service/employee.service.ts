@@ -255,5 +255,31 @@ export class EmployeeService {
 
   //#endregion
 
+
+
+
+  //---------------------------------------------------------------------------------------------------------------------------------
+  //#region Check 8 Hours Reached
+
+
+  totalWorkedHours:number=0; // to store the total worked hours of a employee in a day.
+  //--------------------------------------
+  // this method is used to check if the 8 hours mark is reached or not 
+
+  CheckRemainingTime():void{
+
+   this.totalWorkedHours=0;
+    //then we need to use a for loop to calculate the total hours worked by a employee from the list we have 
+    this.listOfTimeEnties.forEach(e=>{
+     this.totalWorkedHours += e.TimeSpend;
+    })
+
+    console.log('The Total Hours worked by a Employee is ',this.totalWorkedHours);
+
+  }
+
+
+  //#endregion
+
 }
 

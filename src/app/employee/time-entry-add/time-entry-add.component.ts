@@ -22,8 +22,13 @@ export class TimeEntryAddComponent implements OnInit {
     this.service.GetAllProjectsForDropDown();
 
 
+    // so we need to set todays date to the calender when the page loads
+    const today = new Date().toISOString().split('T')[0];
+    console.log('Todays date is ',today);
+
+    // for validating the Reactive form.
     this.form = this.formbuilder.group({
-      EntryDate: ['', Validators.required], 
+      EntryDate: [today, Validators.required], 
       ProjectId: ['', Validators.required], 
       ActivityId: ['', Validators.required], 
       TimeSpend: ['', [
@@ -100,6 +105,35 @@ export class TimeEntryAddComponent implements OnInit {
 
 
   //#endregion
+
+
+  //---------------------------------------------------------------------------------------------------------------------------------
+  //#region Check if Time Exceeds 8 hours 
+  
+   timeSpend:number=0;
+   errorTimeLimit:string='';
+   isFormDiabled:boolean=false;
+  //-------------------
+   
+  CheckTimeLimit(){
+
+    this.timeSpend = this.form.get('TimeSpend').value;
+    console.log(this.timeSpend);
+
+    if(this.timeSpend+this.service.totalWorkedHours>8){
+      this.errorTimeLimit='Time Exceed 8 Hrs';
+      this.isFormDiabled = true;
+    }
+    else{
+      this.errorTimeLimit='';
+      this.isFormDiabled=false;
+    }
+  }
+
+  //#endregion
+
+
+
 
 
 }

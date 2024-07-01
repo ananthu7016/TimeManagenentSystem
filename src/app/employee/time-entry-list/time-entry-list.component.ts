@@ -14,6 +14,15 @@ export class TimeEntryListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    // when this page loads we need to get the details of Todays Time Entries 
+    const today:string = new Date().toISOString().split('T')[0];// getting todays date
+
+    // then we need to call a method in service to get the list for todays date
+    this.service.GetTimeEntriesOfEmployee(today);
+    console.log('Date : Today is : ',today);
+
+    this.service.CheckRemainingTime();
   }
   
 

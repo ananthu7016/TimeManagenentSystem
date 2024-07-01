@@ -36,10 +36,10 @@
   
     <div>
         <label>Time Spend</label>
-        <input type="number" class="form-control" placeholder="Enter Time in Hours" formControlName="TimeSpend" />
-        <span class="text-danger" *ngIf="form.get('TimeSpend').hasError('max')" >Time Exceeds 8 Hrs</span>
+        <input type="number" class="form-control" placeholder="Enter Time in Hours" formControlName="TimeSpend" (keyup)="CheckTimeLimit()" />
+        <span class="text-danger">{{errorTimeLimit}}</span>
       </div>
 
-    <button class="btn btn-outline-secondary" [disabled]="form.invalid" >Save</button>
+    <button class="btn btn-outline-secondary" [disabled]="form.invalid || isFormDisabled" >Save</button>
 
 </form>

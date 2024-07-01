@@ -24,6 +24,14 @@ export class EmployeeComponent implements OnInit {
     this.service.toogleGrid = true;
     this.service.toogleAdd=true;
     this.service.toogleEdit=false;
+
+
+    // along with that we need to sort the list to todays list again 
+    const today:string = new Date().toISOString().split('T')[0];// getting todays date
+
+    // then we need to call a method in service to get the list for todays date
+    this.service.GetTimeEntriesOfEmployee(today);
+    
   }
 
 
@@ -38,6 +46,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   //#endregion
+
 
 
 

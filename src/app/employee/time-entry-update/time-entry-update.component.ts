@@ -86,4 +86,32 @@ export class TimeEntryUpdateComponent implements OnInit {
   //#endregion
 
 
+    //---------------------------------------------------------------------------------------------------------------------------------
+  //#region Check if Time Exceeds 8 hours 
+  
+  timeSpend:number=0;
+  errorTimeLimit:string='';
+  isFormDisabled:boolean=false; // to make the button diabled and enable based on the Count.
+ //-------------------
+  
+ CheckTimeLimit(){
+
+   this.timeSpend = this.form.get('TimeSpend').value;
+   console.log(this.timeSpend);
+
+   if(this.timeSpend+this.service.totalWorkedHours>8){
+     this.errorTimeLimit='Time Exceed 8 Hrs';
+     this.isFormDisabled=true;
+
+   }
+   else{
+     this.errorTimeLimit='';
+     this.isFormDisabled=false;
+   }
+ }
+
+ //#endregion
+
+
+
 }
