@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { NavbarModule } from './navbar/navbar.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {AuthInterceptor} from 'src/app/auth/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
@@ -15,7 +18,9 @@ import {AuthInterceptor} from 'src/app/auth/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NavbarModule
+    NavbarModule,
+    ReactiveFormsModule
+
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

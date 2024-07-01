@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
 import { TimeEntry } from 'src/app/shared/model/time-entry';
-import { NgForm } from '@angular/forms';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms'; 
+
 
 @Component({
   selector: 'app-time-entry-add',
@@ -10,12 +11,28 @@ import { NgForm } from '@angular/forms';
 })
 export class TimeEntryAddComponent implements OnInit {
 
-  constructor(public service: EmployeeService) { }
+
+  form: FormGroup;
+  
+  constructor(public service: EmployeeService,private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
 
     // when this page is loaded we need to call the method in the service to getall the detail of Projects
     this.service.GetAllProjectsForDropDown();
+
+
+    this.form = this.formbuilder.group({
+      EntryDate: ['', Validators.required], 
+      ProjectId: ['', Validators.required], 
+      ActivityId: ['', Validators.required], 
+      TimeSpend: ['', [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(8)
+      ]] 
+    });
+    
   }
 
   //----------------------------------------------------------------------------------------------------------------------------------
@@ -48,13 +65,13 @@ export class TimeEntryAddComponent implements OnInit {
 
   // then we need a method to be called when the form is Submitted and then we need to get the values from the form and pass it 
   // to the service layer.
-  AddNewTimeEntry(form: NgForm) {
-    console.log('The form is submitted and the value recievde is :', form.value);
-    if (form.value) {
+  AddNewTimeEntry() {
+    console.log('The form is submitted and the value recievde is :', this.form.value);
+    if (this.form.value) {
       //making sure that the form has values 
       // then we need to subscribe to the observable in service 
 
-      this.service.AddNewTimeEntry(form.value)
+      this.service.AddNewTimeEntry(this.form.value)
         .subscribe((response: any) => {
           // if control enters this block then response is recieved.
           console.log('The response recieved when subscribing to the observable is : ', response);

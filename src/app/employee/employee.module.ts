@@ -8,6 +8,7 @@ import { TimeEntryAddComponent } from './time-entry-add/time-entry-add.component
 import { TimeEntryUpdateComponent } from './time-entry-update/time-entry-update.component';
 import { FormsModule } from '@angular/forms';
 import { NavbarModule } from 'src/app/navbar/navbar.module';
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 
 
@@ -18,7 +19,8 @@ import { NavbarModule } from 'src/app/navbar/navbar.module';
     CommonModule,
     EmployeeRoutingModule,
     FormsModule,
-    NavbarModule
+    NavbarModule,
+    ReactiveFormsModule
   
   ]
 })

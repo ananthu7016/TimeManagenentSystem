@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { TimeEntry } from 'src/app/shared/model/time-entry';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
 
@@ -10,9 +10,20 @@ import { EmployeeService } from 'src/app/shared/service/employee.service';
 })
 export class TimeEntryUpdateComponent implements OnInit {
 
-  constructor(public service: EmployeeService) { }
+  constructor(public service: EmployeeService, private formBuider:FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.form = this.formBuider.group({
+      ProjectId :['',Validators.required],
+      ActivityId:['',Validators.required],
+      TimeSpend: ['',
+        [
+          Validators.required,
+          Validators.min(1),
+          Validators.max(8)
+        ]]
+    })
   }
 
   //----------------------------------------------------------------------------------------------------------------------------------
@@ -41,15 +52,16 @@ export class TimeEntryUpdateComponent implements OnInit {
 
   //we need a instance to map the details in the form 
   updatedTimeEntry: TimeEntry = new TimeEntry();
+  form:FormGroup;
   //-------------------------------------------
 
-  UpdateTimeEntry(form: NgForm) {
+  UpdateTimeEntry() {
 
-    console.log('The form for updating the time entry has been submitted and the new Data recieved is :', form.value);
+    console.log('The form for updating the time entry has been submitted and the new Data recieved is :', this.form.value);
 
     //then we need to subscribe to the observable 
 
-    this.service.EditTimeEntry(form.value)
+    this.service.EditTimeEntry(this.form.value)
       .subscribe((response) => {
 
         // if control enters this block then response is recieved.

@@ -1,6 +1,6 @@
 import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/model/user';
 import { LoginResponse } from 'src/app/shared/model/login-response';
 import { LoginService } from 'src/app/shared/service/login.service';
@@ -14,9 +14,24 @@ import { Route, Router, Routes } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public service: LoginService,private router:Router) { }
+  constructor(public service: LoginService,private router:Router,private formBuilder :FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.form = this.formBuilder.group({
+      UserName:['',[
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(8)
+      ]],
+      Password:['',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(8)
+        ]],
+
+    });
   }
 
 
@@ -28,18 +43,21 @@ export class LoginComponent implements OnInit {
   // then we need a instance to store the response ie details of the person logged in if He is valid.
   loginRespone : LoginResponse = new LoginResponse();
 
+  // then we need to create an instance of form since we are using reactive form
+  form:FormGroup;
+
   //-------------------------------------
 
   // Then we need  a method to map the values from the form to the instance and then pass the values to the service layer.
-  OnSubmit(form: NgForm): void {
+  OnSubmit(): void {
 
-    console.log('The form is submitted and the values recieved are ', form.value);
+    console.log('The form is submitted and the values recieved are ', this.form.value);
 
     // then we need to subscribe to a observable in the service
 
-    if (form.value) {
+    if (this.form.value) {
       // making sure that the form contains value.
-      this.service.ValidateUser(form.value)
+      this.service.ValidateUser(this.form.value)
         .subscribe((response: any) => {
 
           // if control enters this block then response is recieved.
