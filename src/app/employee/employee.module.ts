@@ -7,6 +7,9 @@ import { TimeEntryListComponent } from './time-entry-list/time-entry-list.compon
 import { TimeEntryAddComponent } from './time-entry-add/time-entry-add.component';
 import { TimeEntryUpdateComponent } from './time-entry-update/time-entry-update.component';
 import { FormsModule } from '@angular/forms';
+import { NavbarModule } from 'src/app/navbar/navbar.module';
+
+
 
 
 @NgModule({
@@ -14,7 +17,9 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     EmployeeRoutingModule,
-    FormsModule
+    FormsModule,
+    NavbarModule
+  
   ]
 })
 export class EmployeeModule { }
