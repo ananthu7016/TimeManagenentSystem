@@ -2,7 +2,12 @@
 <h2>Time Entries</h2>
 
 <p>Choose Date to view Entries : </p>
-<input type="date" name="selectedDate" [(ngModel)]="selectedDate" (change)="GetSelectedDate()"  />
+
+    <input type="date" [(ngModel)]="selectedDate" (change)="GetSelectedDate()" #dateChooser/>
+
+
+
+<h5>Time Entries for the Date : <span>{{this.selectedDateInString}}</span></h5>
 <table class="table"> 
 
 <thead>
@@ -27,3 +32,21 @@
 </tbody>
 
 </table>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Update Time Entry </h3>
+          <button type="button" class="close" (click)="CloseModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <app-time-entry-update></app-time-entry-update>
+        </div>
+      </div>
+    </div>
+  </div>

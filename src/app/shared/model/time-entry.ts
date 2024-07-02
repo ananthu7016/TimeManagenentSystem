@@ -6,6 +6,7 @@ export class TimeEntry {
     ActivityId: number=0
     TimeSpend:number=0                                                         
     EntryDate:Date = new Date()
+    Description:string='';
 
     
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TimeEntryDetail } from 'src/app/shared/model/time-entry-detail';
-import {EmployeeService} from 'src/app/shared/service/employee.service'
+import {EmployeeService} from 'src/app/shared/service/employee.service';
+import * as $ from 'jquery';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-time-entry-list',
@@ -9,20 +12,30 @@ import {EmployeeService} from 'src/app/shared/service/employee.service'
 })
 export class TimeEntryListComponent implements OnInit {
 
+  //----------------------
+  //some instances
+  today:string='';
+
   // so here we need to access the service layer of employee so to get the instance of service we can use DI
-  constructor(public service:EmployeeService) { 
+  constructor(public service:EmployeeService,private formBuilder:FormBuilder) { 
   }
+
 
   ngOnInit(): void {
 
     // when this page loads we need to get the details of Todays Time Entries 
-    const today:string = new Date().toISOString().split('T')[0];// getting todays date
+     this.today = new Date().toISOString().split('T')[0];// getting todays date
 
     // then we need to call a method in service to get the list for todays date
-    this.service.GetTimeEntriesOfEmployee(today);
-    console.log('Date : Today is : ',today);
+    this.service.GetTimeEntriesOfEmployee(this.today);
+    console.log('Date : Today is : ',this.today);
+
+    //then we need to make the selected date as todays date
+    this.selectedDateInString = this.today
 
     this.service.CheckRemainingTime();
+ 
+   
   }
   
 
@@ -76,11 +89,10 @@ EditATimeEntry(timeEntry:TimeEntryDetail){
   // then we need to assign this to a global instance in the service so that the edit component can access it.
   this.service.selectedTimeEntry = timeEntry;
 
-  // then we need to hide the Add component and display the edit component and grid.
-  this.service.toogleAdd=false;
-  this.service.toogleGrid=true;
-  this.service.toogleEdit=true;
-  this.service.toogleList=false;
+
+  // then we need to show the modal form 
+  this.OpenModal();
+  
 
 }
 
@@ -109,15 +121,42 @@ DeleteTimeEntry(entryId:number){
       // so if control enters this block it means that the Success Status is 0 and there is no response 
       // we need to show error message(ie the Status message recieved form the Api) to user
       console.log('There is a problem the Success status recieved is 0 : Something went wrong.The error message recieved is -' + response.StatusMessage);
-
     }
-    else{
+    else if(response.Success==1){
       // if control enters this block it means that we have recived a success one
       
+      // so we need to reload the List now based on the new Details 
+
+      this.service.GetTimeEntriesOfEmployee(this.selectedDateInString);
+      console.log('The request to reload the List for the date ',this.selectedDateInString);
     }
 
   })
 }
+
+//#endregion
+
+
+//------------------------------------------------------------------------------------------------------------------------------------
+//#region Trigger Modal 
+
+OpenModal() {
+  const modal = document.getElementById('editModal');
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'block';
+  }
+}
+
+CloseModal() {
+  const modal = document.getElementById('editModal');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+  }
+}
+
+
 
 //#endregion
 

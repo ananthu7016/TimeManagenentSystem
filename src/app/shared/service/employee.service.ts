@@ -21,15 +21,21 @@ export class EmployeeService {
 
   //Declaring a gloabal array to store the details of the response recived from the API Call for getting TimeEntries
   listOfTimeEnties: TimeEntryDetail[] = [
-    new TimeEntryDetail(1, 'Project A', 'Coding', 2),
-    new TimeEntryDetail(2, 'Project B', 'Testing', 1),
-    new TimeEntryDetail(3, 'Project C', 'Design', 3),
+    new TimeEntryDetail(1, 'Project A', 'Coding', 2,1,1,'Make changes in some Coading concept'),
+    new TimeEntryDetail(2, 'Project B', 'Testing', 1,2,2,'Tested and made sure everything is working fine'),
+    new TimeEntryDetail(3, 'Project C', 'Design', 3,3,3,'Done some desigining in the Login module'),
   ];
+
+  // then we need to store the selected time ie the Latest time recieved to refresh the list 
+  selectedDateInString:string='';
   //---------------------------------------------
 
   // this method is responsible to populate the List of time entries using the date provided 
 
   GetTimeEntriesOfEmployee(date: string): void {
+
+    // first we need to assign the date recieved to the global varuable so that other functions can access it.
+    this.selectedDateInString = date;
 
     // so we need to call the api to get the values 
 
@@ -280,6 +286,7 @@ export class EmployeeService {
 
 
   //#endregion
+
 
 }
 

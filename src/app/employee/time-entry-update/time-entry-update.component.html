@@ -1,43 +1,33 @@
-<h2>Update a Time Entry</h2>
-
-
-<h4>Current Details</h4>
-<table class="table">
-<tbody>
-    <tr>
-        <td>Project Name : </td>
-        <td>{{service.selectedTimeEntry.ProjectName}}</td>
-    </tr>
-    <tr>
-        <td>Activity Name : </td>
-        <td>{{service.selectedTimeEntry.ActivityName}}</td>
-    </tr>
-    <tr>
-        <td>Time Spend : </td>
-        <td>{{service.selectedTimeEntry.TimeSpend}}</td>
-    </tr>
-</tbody>
-</table>
-
 
 <form [formGroup]="form" (ngSubmit)="UpdateTimeEntry()" >
 
     <label>Project Name</label>
-    <select class="form-control" formControlName="ProjectId" (change)="FillActivitiesDropdown()">
+    <select class="form-control" formControlName="ProjectId" (change)="FillActivitiesDropdown()" [(ngModel)]="service.selectedTimeEntry.ProjectId" >
       <option value="">--Select Project--</option>
       <option *ngFor="let data of service.listOfProjects" [value]="data.Id">{{ data.Name }}</option>
     </select>
   
     <label>Activity</label>
-    <select class="form-control" formControlName="ActivityId">
+    <select class="form-control" formControlName="ActivityId" [(ngModel)]="service.selectedTimeEntry.ActivityId" >
       <option value="">--Select Activity--</option>
       <option *ngFor="let data of service.listOfActivities" [value]="data.Id">{{ data.Name }}</option>
     </select>
   
     <div>
         <label>Time Spend</label>
-        <input type="number" class="form-control" placeholder="Enter Time in Hours" formControlName="TimeSpend" (keyup)="CheckTimeLimit()" />
+        <input type="number" class="form-control" placeholder="Enter Time in Hours" formControlName="TimeSpend" (keyup)="CheckTimeLimit()"
+        [(ngModel)]="service.selectedTimeEntry.TimeSpend" />
         <span class="text-danger">{{errorTimeLimit}}</span>
+      </div>
+
+
+      <div>
+        <label>Description of time entry</label>
+        <textarea placeholder="Enter details of time entries" formControlName="Description" class="form-control" [(ngModel)]="service.selectedTimeEntry.Description" ></textarea>
+        <div class="text-danger">
+          <span *ngIf="form.get('Description').hasError('minlength')" >Minimum 4 Charectors required.</span>
+          <span *ngIf="form.get('Description').hasError('maxlength')">Maximum 200 Charectors Only</span>
+        </div>
       </div>
 
     <button class="btn btn-outline-secondary" [disabled]="form.invalid || isFormDisabled" >Save</button>

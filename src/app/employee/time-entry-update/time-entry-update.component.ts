@@ -10,18 +10,25 @@ import { EmployeeService } from 'src/app/shared/service/employee.service';
 })
 export class TimeEntryUpdateComponent implements OnInit {
 
-  constructor(public service: EmployeeService, private formBuider:FormBuilder) { }
+  constructor(public service: EmployeeService, private formBuider: FormBuilder) { }
 
   ngOnInit(): void {
 
     this.form = this.formBuider.group({
-      ProjectId :['',Validators.required],
-      ActivityId:['',Validators.required],
+      ProjectId: ['', Validators.required],
+      ActivityId: ['', Validators.required],
       TimeSpend: ['',
         [
           Validators.required,
           Validators.min(1),
           Validators.max(8)
+        ]]
+      ,
+      Description: ['',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(200)
         ]]
     })
   }
@@ -52,7 +59,7 @@ export class TimeEntryUpdateComponent implements OnInit {
 
   //we need a instance to map the details in the form 
   updatedTimeEntry: TimeEntry = new TimeEntry();
-  form:FormGroup;
+  form: FormGroup;
   //-------------------------------------------
 
   UpdateTimeEntry() {
@@ -74,9 +81,12 @@ export class TimeEntryUpdateComponent implements OnInit {
           console.log('There is a problem the Success status recieved is 0 : Something went wrong.The error message recieved is -' + response.StatusMessage);
 
         }
-        else {
+        else if(response.Success == 1) {
           // if control enters this block it means that we have recived a success one
 
+          // so after the editing is successfull we need to refresh the List so that new Values will be there in the list
+          console.log('The request to refresh the List for the selected date is called with the date ',this.service.selectedDateInString);
+          this.service.GetTimeEntriesOfEmployee(this.service.selectedDateInString);
         }
 
 
@@ -86,31 +96,31 @@ export class TimeEntryUpdateComponent implements OnInit {
   //#endregion
 
 
-    //---------------------------------------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------------------------------------
   //#region Check if Time Exceeds 8 hours 
-  
-  timeSpend:number=0;
-  errorTimeLimit:string='';
-  isFormDisabled:boolean=false; // to make the button diabled and enable based on the Count.
- //-------------------
-  
- CheckTimeLimit(){
 
-   this.timeSpend = this.form.get('TimeSpend').value;
-   console.log(this.timeSpend);
+  timeSpend: number = 0;
+  errorTimeLimit: string = '';
+  isFormDisabled: boolean = false; // to make the button diabled and enable based on the Count.
+  //-------------------
 
-   if(this.timeSpend+this.service.totalWorkedHours>8){
-     this.errorTimeLimit='Time Exceed 8 Hrs';
-     this.isFormDisabled=true;
+  CheckTimeLimit() {
 
-   }
-   else{
-     this.errorTimeLimit='';
-     this.isFormDisabled=false;
-   }
- }
+    this.timeSpend = this.form.get('TimeSpend').value;
+    console.log(this.timeSpend);
 
- //#endregion
+    if (this.timeSpend + this.service.totalWorkedHours > 8) {
+      this.errorTimeLimit = 'Time Exceed 8 Hrs';
+      this.isFormDisabled = true;
+
+    }
+    else {
+      this.errorTimeLimit = '';
+      this.isFormDisabled = false;
+    }
+  }
+
+  //#endregion
 
 
 

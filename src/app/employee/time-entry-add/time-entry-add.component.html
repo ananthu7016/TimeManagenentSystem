@@ -1,4 +1,4 @@
-<h2>Add a new Time Entry</h2>
+
 
 <form [formGroup]="form" (ngSubmit)="AddNewTimeEntry()">
     <input type="date" formControlName="EntryDate" />
@@ -19,6 +19,15 @@
       <label>Time Spend</label>
       <input type="number" class="form-control" placeholder="Enter Time in Hours" formControlName="TimeSpend" (keyup)="CheckTimeLimit()" />
       <span class="text-danger">{{errorTimeLimit}}</span>
+    </div>
+
+    <div>
+      <label>Description of time entry</label>
+      <textarea placeholder="Enter details of time entries" formControlName="Description" class="form-control" ></textarea>
+      <div class="text-danger">
+        <span *ngIf="form.get('Description').hasError('minlength')" >Minimum 4 Charectors required.</span>
+        <span *ngIf="form.get('Description').hasError('maxlength')">Maximum 200 Charectors Only</span>
+      </div>
     </div>
 
   

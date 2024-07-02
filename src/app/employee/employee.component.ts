@@ -14,39 +14,41 @@ export class EmployeeComponent implements OnInit {
   }
 
 
-  //----------------------------------------------------------------------------------------------------------------------------------
-  //#region Hide & Unhide Components
+  //-----------------------------------------------------------------------------
+  //#region  Open and Close Modals
 
-  // this function will be called when the Add button is clicked so that the Grid is enabled and add component is shown
-  ShowAddComponent():void{
+  //--------------------------------
 
-    this.service.toogleList = false;
-    this.service.toogleGrid = true;
-    this.service.toogleAdd=true;
-    this.service.toogleEdit=false;
+  // this methods are used to control the Style of the modal to show them or hide them
+  OpenModal() {
+
+     // along with that we need to sort the list to todays list again 
+     const today:string = new Date().toISOString().split('T')[0];// getting todays date
+
+     // then we need to call a method in service to get the list for todays date
+     this.service.GetTimeEntriesOfEmployee(today);
+
+     // then we need to show Modal
+    const modal = document.getElementById('addModal');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
 
 
-    // along with that we need to sort the list to todays list again 
-    const today:string = new Date().toISOString().split('T')[0];// getting todays date
-
-    // then we need to call a method in service to get the list for todays date
-    this.service.GetTimeEntriesOfEmployee(today);
     
   }
 
-
-  //this method is for closing the Grid and showing the list back again 
-  CloseGrid():void{
-
-    this.service.toogleList = true;
-    this.service.toogleGrid = false;
-    this.service.toogleAdd=false;
-    this.service.toogleEdit=false;
-    
+  CloseModal() {
+    const modal = document.getElementById('addModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
   }
+
 
   //#endregion
-
 
 
 

@@ -1,17 +1,18 @@
-<div class="pos-f-t">
-    <div class="collapse" id="navbarToggleExternalContent">
-      <div class="bg-dark p-4">
-        <h4 class="text-white">Collapsed content</h4>
-        <span class="text-muted">Toggleable via the navbar brand.</span>
-      </div>
-    </div>
-    <nav class="navbar navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <button class="btn btn-danger" (click)="LogOut()" >Log Out</button>
-    </nav>
+<div *ngIf="isColapsed" data-bs-theme="dark">
+  <div class="bg-dark p-4">
 
+<h3 class="text-white">UserName : <span></span></h3>
+ 
+  </div>
+</div>
+
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+      <button class="navbar-toggler" type="button" (click)="ToogleNavbar()">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <button class="btn btn-danger" (click)="LogOut()">LogOut</button>
   </div>
 
-  <br>
+</nav>
+<br>

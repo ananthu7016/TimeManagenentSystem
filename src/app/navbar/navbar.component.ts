@@ -29,4 +29,16 @@ LogOut():void{
 
 //#endregion
 
+
+
+//------------------------------------------------------------------------------------------------------------------------------------
+//#region  Open and CLose Navbar
+isColapsed:boolean=false;
+//-------------------------
+
+ToogleNavbar(){
+  this.isColapsed = !this.isColapsed;
+}
+
+//#endregion
 }

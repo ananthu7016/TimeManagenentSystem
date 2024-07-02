@@ -35,7 +35,13 @@ export class TimeEntryAddComponent implements OnInit {
         Validators.required,
         Validators.min(1),
         Validators.max(8)
-      ]] 
+      ]] ,
+      Description:['',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(200)
+        ]]
     });
     
   }
