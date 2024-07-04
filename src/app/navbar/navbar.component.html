@@ -1,18 +1,14 @@
-<div *ngIf="isColapsed" data-bs-theme="dark">
-  <div class="bg-dark p-4">
+<nav class="navbar navbar-light bg-light justify-content-between">
+  
+  <img src="../../assets/images/BootstapLogo.jpeg" width="40px" height="40px">
 
-<h3 class="text-white">UserName : <span></span></h3>
- 
-  </div>
-</div>
-
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-      <button class="navbar-toggler" type="button" (click)="ToogleNavbar()">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <button class="btn btn-danger" (click)="LogOut()">LogOut</button>
-  </div>
-
+  <button  style="margin-left: 120px;" class="btn btn-light mr-auto"(mouseenter)="ShowCardAdd()" >Reports</button>
+  <form class="form-inline">
+  </form>
+  <button class="btn btn-light" (mouseenter)="ShowCardUser()" ><i class="fa fa-user" style="font-size: 25px;"></i></button>
 </nav>
-<br>
+<app-manage-time-entry style="position: absolute; left: 180px; z-index: 1;" (mouseleave)="HideCardAdd()" ></app-manage-time-entry>
+<app-user-info style="position: absolute; right: 10px;z-index: 1;" (mouseleave)="HideCardUser()" ></app-user-info>
+
+
+

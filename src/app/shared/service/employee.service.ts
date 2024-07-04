@@ -21,9 +21,12 @@ export class EmployeeService {
 
   //Declaring a gloabal array to store the details of the response recived from the API Call for getting TimeEntries
   listOfTimeEnties: TimeEntryDetail[] = [
-    new TimeEntryDetail(1, 'Project A', 'Coding', 2,1,1,'Make changes in some Coading concept'),
-    new TimeEntryDetail(2, 'Project B', 'Testing', 1,2,2,'Tested and made sure everything is working fine'),
-    new TimeEntryDetail(3, 'Project C', 'Design', 3,3,3,'Done some desigining in the Login module'),
+    {  TimeEntryId : 1,ProjectName: 'Project A',TimeSpend: 3,ActivityId:1,Description:'This is a Description',ActivityName:'Activity A',ProjectId:1},
+    {  TimeEntryId : 2,ProjectName: 'Project A',TimeSpend: 2,ActivityId:2,Description:'This is a Description',ActivityName:'Activity B',ProjectId:1},
+    {  TimeEntryId : 3,ProjectName: 'Project A',TimeSpend: 1,ActivityId:3,Description:'This is a Description',ActivityName:'Activity C',ProjectId:1},
+    {  TimeEntryId : 4,ProjectName: 'Project B',TimeSpend: 0,ActivityId:1,Description:'This is a Description',ActivityName:'Activity A',ProjectId:2},
+    {  TimeEntryId : 5,ProjectName: 'Project B',TimeSpend: 0,ActivityId:2,Description:'This is a Description',ActivityName:'Activity B',ProjectId:2},
+    {  TimeEntryId : 6,ProjectName: 'Project B',TimeSpend: 0,ActivityId:3,Description:'This is a Description',ActivityName:'Activity C',ProjectId:2},
   ];
 
   // then we need to store the selected time ie the Latest time recieved to refresh the list 
@@ -32,7 +35,7 @@ export class EmployeeService {
 
   // this method is responsible to populate the List of time entries using the date provided 
 
-  GetTimeEntriesOfEmployee(date: string): void {
+  GetTimeEntriesOfEmployee(date: string): number {
 
     // first we need to assign the date recieved to the global varuable so that other functions can access it.
     this.selectedDateInString = date;
@@ -76,6 +79,7 @@ export class EmployeeService {
         console.log('There was some problems while fetching the details of Time Entries. The error occured is ', error);
       })
 
+      return 0;
   }
 
   //#endregion
@@ -88,9 +92,10 @@ export class EmployeeService {
   //first we need an array to store the details of the Fields which are required to filling up the dropdown for projects 
   listOfProjects: DropDownDetail[] = [
 
-    new DropDownDetail(1, 'Project A'),
-    new DropDownDetail(2, 'Project C'),
-    new DropDownDetail(3, 'Project B')
+    {Id:1,Name:'Project A'},
+    {Id:2,Name:'Project B'},
+    {Id:3,Name:'Project C'}
+
   ]
 
   //--------------------------------------
@@ -147,11 +152,11 @@ export class EmployeeService {
   //first we need an array to store the details of the Fields which are required to filling up the dropdown for projects 
   listOfActivities: DropDownDetail[] = [
 
-    new DropDownDetail(1, 'Activity A'),
-    new DropDownDetail(2, 'Activity C'),
-    new DropDownDetail(3, 'Activity B')
-  ]
+    {Id:1,Name:'Activity A'},
+    {Id:2,Name:'Activity B'},
+    {Id:3,Name:'Activity C'}
 
+  ];
   //--------------------------------------
 
   // this method will expect a project id as parameter to get the details of all the activities that are related to a selected project.
@@ -219,7 +224,8 @@ export class EmployeeService {
   //#region  Edit A Time Entry 
 
   //declaring an instance to store the details of the selected Time Entry 
-  selectedTimeEntry: TimeEntryDetail;// = new TimeEntryDetail();
+  selectedTimeEntry: TimeEntryDetail = {  TimeEntryId : 1,ProjectName: 'Project A',TimeSpend: 3,ActivityId:1,Description:'This is a Description',ActivityName:'Activity A',ProjectId:1};
+
   //------------------------------
 
   // then we need to define a observable to be called when the time entry is to be edited 
@@ -287,6 +293,13 @@ export class EmployeeService {
 
   //#endregion
 
+
+
+  //----------------------------------------------------------------------------------------------------------------------------------
+  //#region Some Fields for Pagination 
+  
+
+  //#endregion
 
 }
 

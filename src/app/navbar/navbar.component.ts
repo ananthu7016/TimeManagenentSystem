@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeeComponent } from '../employee/employee.component';
 
 @Component({
   selector: 'app-navbar',
@@ -11,23 +12,13 @@ export class NavbarComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit(): void {
+
+    // so when the page loads we need to hide the card 
+    this.HideCardUser();
+    this.HideCardAdd();
   }
 
-//--------------------------------------------------------------------------------------------------------------------------------
-//#region Log Out
 
-//-------------------
-// so when this function is called we have the redirect the user to the Login page 
-LogOut():void{
-  
-  console.log('Has recieved a request to Logout ');
-
-  // then we need to redirect the user to the Login Page
-  this.router.navigate(['/auth/login']);
-
-}
-
-//#endregion
 
 
 
@@ -41,4 +32,51 @@ ToogleNavbar(){
 }
 
 //#endregion
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------
+//#region To Hide/Show the card User
+HideCardUser() {
+  let card = document.getElementById('cardUser');
+  if (card) {
+    card.style.display = 'none';
+  }
+}
+
+ShowCardUser(){
+  let card = document.getElementById('cardUser');
+  if(card){
+    card.style.display ='block';
+  }
+}
+//#endregion
+
+
+//------------------------------------------------------------------------------------------------------------------------------------
+//#region To Hide/Show the card User
+HideCardAdd() {
+  let card = document.getElementById('addEntryCard');
+  if (card) {
+    card.style.display = 'none';
+  }
+}
+
+ShowCardAdd(){
+  let card = document.getElementById('addEntryCard');
+  if(card){
+    card.style.display ='block';
+  }
+}
+//#endregion
+
+
+
+
+
+
+
+
+
+
 }

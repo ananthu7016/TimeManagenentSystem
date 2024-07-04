@@ -1,7 +1,7 @@
 
 
 <form [formGroup]="form" (ngSubmit)="AddNewTimeEntry()">
-    <input type="date" formControlName="EntryDate" />
+    <input type="date" formControlName="EntryDate" class="form-control" id="EntryDate" (change)="CheckSelectedDate()" />
   
     <label>Project Name</label>
     <select class="form-control" formControlName="ProjectId" (change)="FillActivitiesDropdown()">
@@ -31,6 +31,7 @@
     </div>
 
   
-    <button type="submit" [disabled]="form.invalid || isFormDiabled" class="btn btn-outline-success">Add</button>
+    <hr>
+    <button type="submit" [disabled]="form.invalid || isFormDiabled" class="btn btn-outline-success" style="width:100%;" >Add</button>
   </form>
   

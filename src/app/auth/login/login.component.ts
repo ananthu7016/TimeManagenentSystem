@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit {
   //#region Get Credentials
 
   //here we need to declare and instance to map the credentials entered by the user 
-  userCredentials: User = new User();
+  userCredentials: User = {UserName:'kepler',Password:'Hello'};
   // then we need a instance to store the response ie details of the person logged in if He is valid.
-  loginRespone : LoginResponse = new LoginResponse();
+  loginRespone : LoginResponse = {EmployeeName : 'Kepler', Token:'' }
 
   // then we need to create an instance of form since we are using reactive form
   form:FormGroup;
@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit {
 
             //before decoding we need to save the Token to the Local storage to acess it.
             localStorage.setItem('Token',token); // this will save the token to the local storage.
+            localStorage.setItem('Name',this.loginRespone.EmployeeName);
 
             //then we need to Parse the Token and store it 
             const parsedToken:any = jwtDecode(token);

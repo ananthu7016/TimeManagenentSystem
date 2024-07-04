@@ -28,7 +28,11 @@ export class TimeEntryAddComponent implements OnInit {
 
     // for validating the Reactive form.
     this.form = this.formbuilder.group({
-      EntryDate: [today, Validators.required], 
+      EntryDate: [today, 
+        [
+          Validators.required,
+
+        ]], 
       ProjectId: ['', Validators.required], 
       ActivityId: ['', Validators.required], 
       TimeSpend: ['', [
@@ -71,7 +75,7 @@ export class TimeEntryAddComponent implements OnInit {
   //--------------------------------------------------------------------------------------------------------------------------------
   //#region Add a new Time Entry 
   // first we need an instance to store and map the data entered by the user in the Form to add a new Time entry
-  newTimeEnty: TimeEntry = new TimeEntry();
+  newTimeEnty: TimeEntry = {TimeEntryId:0,TimeSpend:0,Description:'',ActivityId:0,EntryDate:new Date()};
   //-----------------------------
 
   // then we need a method to be called when the form is Submitted and then we need to get the values from the form and pass it 
@@ -139,6 +143,30 @@ export class TimeEntryAddComponent implements OnInit {
   //#endregion
 
 
+
+  //----------------------------------------------------------------------------------------------------------------------------------
+  //#region Validaton for Date
+  CheckSelectedDate():void{
+  
+    console.log('Is the value for date selected in the Reactive form',this.form.controls.EntryDate.value);
+
+    const today:string =  new Date().toISOString().split('T')[0];
+    console.log('Todays date is',today)
+    if(today < this.form.controls.EntryDate.value){
+      // so if control enters this block we need to show error
+      document.getElementById('EntryDate').style.borderColor='red';
+      this.isFormDiabled = true;
+    }
+    else{
+      document.getElementById('EntryDate').style.borderColor='aqua';
+      this.isFormDiabled=false;
+    }
+  
+  
+  }
+
+
+  //#endregion
 
 
 

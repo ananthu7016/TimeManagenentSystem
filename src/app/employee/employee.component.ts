@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { EmployeeService } from '../shared/service/employee.service';
-
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.scss']
 })
+
+
 export class EmployeeComponent implements OnInit {
 
   constructor(public service:EmployeeService) { }

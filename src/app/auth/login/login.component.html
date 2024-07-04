@@ -1,24 +1,47 @@
-<form [formGroup]="form" (ngSubmit)="OnSubmit()">
+<!--For Logo in the Login Page -->
+<div style="position: absolute;">
+  <img src="../../../assets/images/BootstapLogo.jpeg" width="60px" height="60px" >  
+  <span style="font-family: monospace; font-weight: bold; font-size: 30px;">Bootstrap</span>
+</div>
 
-  <div class="form-group">
-    <label for="UserName">Username</label>
-    <input type="text" formControlName="UserName" class="form-control" placeholder="Enter Username" />
-    <div class="text-danger">
-      <span *ngIf="form.get('UserName').hasError('minlength')">Username must be at least 3 characters.</span>
-      <span *ngIf="form.get('UserName').hasError('maxlength')">Username cannot be more than 8 characters.</span>
+<body class="d-flex">
+  <div class="mx-auto custom-container p-4 ">
+
+
+    <div class="loginFormOuterDiv container">
+      <h4>Time Management System</h4>
+      <br>
+      <hr>
+      <h3 style="text-align: center;">Login</h3>
+
+      <hr>
+      <form [formGroup]="form" (ngSubmit)="OnSubmit()">
+
+        <div class="form-group">
+          <label for="UserName">Username</label>
+          <input type="text" formControlName="UserName" class="form-control" placeholder="Enter Username" />
+          <div class="text-danger">
+            <span *ngIf="form.get('UserName').hasError('minlength')">Username must be at least 3 characters.</span>
+            <span *ngIf="form.get('UserName').hasError('maxlength')">Username cannot be more than 8 characters.</span>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="Password">Password</label>
+          <input type="password" formControlName="Password" placeholder="Enter Password" class="form-control" />
+          <div class="text-danger">
+            <span *ngIf="form.get('Password').hasError('minlength')">Password must be at least 3 charectors</span>
+            <span *ngIf="form.get('Password').hasError('maxlength')">Password must be less than 8 charectors</span>
+          </div>
+        </div>
+
+        <hr>
+        <button type="submit" class="btn btn-primary " [disabled]="form.invalid" style="width: 100%;">Log In</button>
+
+      </form>
     </div>
 
+
   </div>
-
-  <div class="form-group">
-    <label for="Password">Password</label>
-    <input type="password" formControlName="Password" placeholder="Enter Password" class="form-control" />
-    <div class="text-danger">
-      <span *ngIf="form.get('Password').hasError('minlength')">Password must be at least 3 charectors</span>
-      <span *ngIf="form.get('Password').hasError('maxlength')">Password must be less than 8 charectors</span>
-    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Log In</button>
-
-</form>
+</body>

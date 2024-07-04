@@ -1,42 +1,71 @@
 
+<hr>
 <h2>Time Entries</h2>
 
-<p>Choose Date to view Entries : </p>
+<div class="row">
+<div class="col-sm-6"></div>
+<div class="col-sm-3">
+    <b>Choose Date to view Entries :</b>
+</div>
 
-    <input type="date" [(ngModel)]="selectedDate" (change)="GetSelectedDate()" #dateChooser/>
+  <div class="col-sm-3" >
+    <input type="date" [(ngModel)]="selectedDate" id="dateChooser" (change)="GetSelectedDate()" #dateChooser class="form-control"/>
+</div>
 
 
+</div>
 
-<h5>Time Entries for the Date : <span>{{this.selectedDateInString}}</span></h5>
-<table class="table"> 
 
-<thead>
-    <th>Project Name</th>
-    <th>Activity Name</th>
-    <th>Time Spend</th>
+<div id="timeEntriesTable">
+    <h5>Time Entries for the Date : <span>{{this.selectedDate|date :'MMMM d, y'}}</span></h5>
+    <br>
+    <table class="table"> 
 
-</thead>
+        <thead>
+            <th>Project Name</th>
+            <th>Activity Name</th>
+            <th>Description</th>
+            <th>Time Spend</th>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let data of service.listOfTimeEnties">
+                <td>{{data.ProjectName}}</td>
+                <td>{{data.ActivityName}}</td>
+                <td>{{data.Description}}</td>
+                <td><b>{{data.TimeSpend}}</b></td>
+                <td><button class="btn btn-outline-primary" (click)="EditATimeEntry(data)" >Edit</button></td>
+                <td><button class="btn btn-outline-danger" (click)="DeleteTimeEntry(data.TimeEntryId)">Delete</button></td>
+            </tr>
+            <tr>
+              <!-- <td>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item"><button [disabled]="currentPage === 1" (click)="OnPageChange(currentPage-1)" class="page-link"  >Previous</button></li>
+                    <li class="page-item"><span class="page-link" >{{currentPage}}/{{totalPages}}</span></li>
+                    <li class="page-item"><button [disabled]="currentPage === totalPages" (click)="OnPageChange(currentPage+1)" class="page-link"   >Next</button></li> 
+                  </ul>
+                </nav>
+              </td> -->
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <b>Total : <span>{{this.service.totalWorkedHours}}</span></b>
+              </td>
+              
+            </tr>
 
-<tbody>
-    <tr *ngFor="let data of service.listOfTimeEnties">
-        <td>{{data.ProjectName}}</td>
-        <td>{{data.ActivityName}}</td>
-        <td>{{data.TimeSpend}}</td>
-        <td><button class="btn btn-outline-primary" (click)="EditATimeEntry(data)" >Edit</button></td>
-        <td><button class="btn btn-outline-danger" (click)="DeleteTimeEntry(data.TimeEntryId)">Delete</button></td>
-    </tr>
-</tbody>
+        </tbody>        
+        </table>
 
-<tbody>
-
-</tbody>
-
-</table>
+        
+</div>
 
 
   <!-- Modal -->
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" id="mdl" >
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title" id="exampleModalLabel">Update Time Entry </h3>
@@ -46,6 +75,8 @@
         </div>
         <div class="modal-body">
             <app-time-entry-update></app-time-entry-update>
+            <br>
+            <hr>
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@ export class TimeEntryUpdateComponent implements OnInit {
   //#region Update a Entry Report
 
   //we need a instance to map the details in the form 
-  updatedTimeEntry: TimeEntry = new TimeEntry();
+  updatedTimeEntry: TimeEntry = {TimeEntryId:0,TimeSpend:0,Description:'',ActivityId:0,EntryDate:new Date()};
   form: FormGroup;
   //-------------------------------------------
 

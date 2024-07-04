@@ -1,4 +1,4 @@
-export class LoginResponse {
+export interface LoginResponse {
 
     // this is a class to map the details of person from the response when he logs in 
 

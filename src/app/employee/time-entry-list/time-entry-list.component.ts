@@ -18,6 +18,7 @@ export class TimeEntryListComponent implements OnInit {
 
   // so here we need to access the service layer of employee so to get the instance of service we can use DI
   constructor(public service:EmployeeService,private formBuilder:FormBuilder) { 
+    this.selectedDate = new Date().toISOString().substring(0, 10); // Initialize with today's date
   }
 
 
@@ -30,12 +31,14 @@ export class TimeEntryListComponent implements OnInit {
     this.service.GetTimeEntriesOfEmployee(this.today);
     console.log('Date : Today is : ',this.today);
 
+
     //then we need to make the selected date as todays date
     this.selectedDateInString = this.today
 
     this.service.CheckRemainingTime();
- 
-   
+
+     this.GetPageItems();
+
   }
   
 
@@ -56,7 +59,7 @@ export class TimeEntryListComponent implements OnInit {
   //---------------------------------------------------------------------------------------------------------------------------------
   //#region Swich Dates for selecting the List
   //declaring an instance to store the selected date 
-  selectedDate:Date = new Date();
+  selectedDate:string = '';
   selectedDateInString: string=''; // this is to store the string in plane text
   //--------------------------------
 
@@ -154,10 +157,63 @@ CloseModal() {
     modal.classList.remove('show');
     modal.style.display = 'none';
   }
+
 }
 
 
 
 //#endregion
 
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+//#region Pagination For List 
+
+// we need to declare some variables 
+currentPage:number=1;  // this is to keep track of the current page the user has selected.
+itemsPerPage:number=3; // this is keep track of number of items per page.
+
+copyListOfTimeEntries:TimeEntryDetail[]=[
+
+]; // this is to store the copy of time entries to be displayed so that we can make manipulations in this
+//------------------------------
+
+
+// first we need a getter to calculate the total number of pages requierd based on the length of list and itemsperpage.
+// since this is a getter for totalPage when we access the instance automatically the block inside it will be excecuted.
+get totalPages():number{
+
+  return Math.ceil(this.service.listOfTimeEnties.length/this.itemsPerPage)
+
+}
+
+
+
+// then we need a method to handle page changes 
+// so this method will be invoked when the user click previous or next page so that the current page value can be updated.
+OnPageChange(page:number):void{
+  this.currentPage=page;
+
+  // so when ever there is a page change we need to call a method to change the list according to the selected page
+  this.GetPageItems();
+}
+
+
+
+
+// then we need a method to slice the list and save to the copy List so that only the Sliced list fom required index will be shown
+GetPageItems():void{
+const startIndex:number= (this.currentPage-1)*this.itemsPerPage;  
+const endingIndex:number = startIndex+this.itemsPerPage;
+
+// then we need to slice the existing list with the start and end index and save to the copyList
+this.copyListOfTimeEntries = this.service.listOfTimeEnties.slice(startIndex,endingIndex);
+
+console.log('The List to be displayed in the view is : ',this.copyListOfTimeEntries);
+console.log('The actual list is ',this.service.listOfTimeEnties);
+}
+
+
+
+//#endregion
 }
